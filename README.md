@@ -1,7 +1,7 @@
 # plannrs
 A TUI-Based day planner with desktop notifications, to keep your programming and work goals on track without having to leave the terminal :3
 ## First Release Goals
-- [ ] Task struct with name, description, completion, and due date.
+- [x] Task struct with name, description, completion, and due date.
 - [ ] Adding a simple task to a `.toml` file with easy interface
 - [ ] List displaying all tasks with simple marking for completion
 - [ ] Highlight if a task is overdue

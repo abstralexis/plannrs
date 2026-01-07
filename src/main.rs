@@ -1,6 +1,8 @@
 use anyhow::Result;
 use ratatui::{DefaultTerminal, Frame, crossterm};
 
+mod task;
+
 fn main() -> Result<()> {
     ratatui::run(app)?;
 
