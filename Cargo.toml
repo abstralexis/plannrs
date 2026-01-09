@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-anyhow = "1.0.100"
 chrono = "0.4.42"
+color-eyre = "0.6.5"
 ratatui = "0.30.0"
+serde = { version = "1.0.228", features = ["derive", "serde_derive"] }
+serde_derive = "1.0.228"
+toml = { version = "0.9.11", features = ["serde"] }

@@ -1,9 +1,11 @@
-use anyhow::Result;
+use color_eyre::Result;
 use ratatui::{DefaultTerminal, Frame, crossterm};
 
 mod task;
 
 fn main() -> Result<()> {
+    color_eyre::install()?;
+
     ratatui::run(app)?;
 
     Ok(())
