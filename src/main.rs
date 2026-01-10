@@ -1,6 +1,7 @@
 use color_eyre::Result;
 use ratatui::{DefaultTerminal, Frame, crossterm};
 
+mod app;
 mod task;
 
 fn main() -> Result<()> {
