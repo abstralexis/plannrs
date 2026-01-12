@@ -7,7 +7,7 @@ mod task;
 fn main() -> Result<()> {
     color_eyre::install()?;
 
-    ratatui::run(app)?;
+    ratatui::run(|terminal| app::App::default().run(terminal))?;
 
     Ok(())
 }

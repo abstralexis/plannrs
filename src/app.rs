@@ -5,9 +5,19 @@
 
 use std::{io, str::FromStr};
 
+use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind};
+use ratatui::{
+    DefaultTerminal, Frame,
+    buffer::Buffer,
+    layout::Rect,
+    style::Stylize,
+    symbols::border,
+    text::{Line, Text},
+    widgets::{Block, Paragraph, Widget},
+};
+
 use crate::task;
 
-use ratatui::{DefaultTerminal, Frame};
 use toml::value::Datetime;
 use tui_textarea::{Input, Key, TextArea};
 
@@ -81,6 +91,36 @@ pub struct App {
     task_form_state: TaskFormState,
     should_exit: bool,
 }
+impl Widget for &App {
+    // For now, I am largely following the ratatui tutorial to get some basics up.
+    // This will not be permanent! We will need more rendering functions that are internal,
+    // so that we can render the different screens when they come around.
+    fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
+        let title = Line::from("plannrs".bold());
+        let instructions = Line::from(vec![
+            " Switch Input ".into(),
+            "<Up/Down>".blue().bold(),
+            " Sumbit ".into(),
+            "<Return>".blue().bold(),
+            " Quit ".into(),
+            "<q> ".blue().bold(),
+        ]);
+        let block = Block::bordered()
+            .title(title.centered())
+            .title_bottom(instructions.centered())
+            .border_set(border::THICK);
+
+        let test_text = Text::from(vec![Line::from(vec![
+            "Test Layout: ".into(),
+            "Flannrs is blazing fast, fearless pudding with a rusty crust".yellow(),
+        ])]);
+
+        Paragraph::new(test_text)
+            .centered()
+            .block(block)
+            .render(area, buf);
+    }
+}
 impl App {
     /// # Usage
     /// ```rs
@@ -97,12 +137,31 @@ impl App {
     /// This is the function for drawing to the terminal. Should only be
     /// used inside of `App::run()`.
     fn draw(&self, frame: &mut Frame) {
-        todo!();
+        frame.render_widget(self, frame.area());
     }
 
     /// Checks for inputs to text areas, pressing of UI buttons, and keystrokes that
     /// would control app state. Should only be used inside of `App::run()`.
     fn handle_events(&mut self) -> io::Result<()> {
-        todo!();
+        match event::read()? {
+            // it's important to check that the event is a key press event as
+            // crossterm also emits key release and repeat events on Windows.
+            Event::Key(key_event) if key_event.kind == KeyEventKind::Press => {
+                self.handle_key_event(key_event)
+            }
+            _ => {}
+        };
+        Ok(())
+    }
+
+    fn handle_key_event(&mut self, key_event: KeyEvent) {
+        match key_event.code {
+            KeyCode::Char('q') => self.exit(),
+            _ => {}
+        }
+    }
+
+    fn exit(&mut self) {
+        self.should_exit = true;
     }
 }
