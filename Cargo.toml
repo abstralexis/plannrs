@@ -2,6 +2,13 @@
 name = "plannrs"
 version = "0.1.0"
 edition = "2024"
+authors = ["Alexis Williams <107479436+abstralexis@users.noreply.github.com>"]
+license = "AGPL-3.0-or-later"
+readme = "README.md"
+repository = "https://https://github.com/abstralexis/plannrs"
+
+[lints.clippy]
+pedantic = "warn"
 
 [dependencies]
 chrono = "0.4.42"
