@@ -31,13 +31,12 @@ use ratatui::{
     style::Stylize,
     symbols::border,
     text::{Line, Text},
-    widgets::{Block, Paragraph, Widget},
+    widgets::{Block, Borders, Paragraph, Widget},
 };
 
 use crate::task;
 
 use toml::value::Datetime;
-use tui_textarea::{Input, Key, TextArea};
 
 // TODO: maybe Task Form stuff should be in another file?
 /// The location of the cursor within a form for submitting a task. The states represent
@@ -117,7 +116,7 @@ impl Widget for &App {
         let title = Line::from("plannrs".bold());
         let instructions = Line::from(vec![
             " Switch Input ".into(),
-            "<Up/Down>".blue().bold(),
+            "<h/k>".blue().bold(),
             " Sumbit ".into(),
             "<Return>".blue().bold(),
             " Quit ".into(),
