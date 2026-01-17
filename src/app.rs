@@ -116,7 +116,7 @@ impl Widget for &App {
         let title = Line::from("plannrs".bold());
         let instructions = Line::from(vec![
             " Switch Input ".into(),
-            "<h/k>".blue().bold(),
+            "<tab>".blue().bold(),
             " Sumbit ".into(),
             "<Return>".blue().bold(),
             " Quit ".into(),
